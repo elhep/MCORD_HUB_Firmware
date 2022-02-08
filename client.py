@@ -26,21 +26,6 @@ class Client:
         else:
             pass
 
-    def temploop(self, afenum):
-        Client._csvwriter('output_data_temploop.csv', 'Date',
-                          'Time', 'AFE_number', 'Voltage_1', 'Voltage_2')
-        while True:
-            try:
-                v1 = self.do_cmd(['adc', afenum, 3])[1]
-                v2 = self.do_cmd(['adc', afenum, 4])[1]
-                currdata, currtime = Client._getTime()
-                Client._csvwriter('output_data_temploop.csv',
-                                  currdata, currtime, afenum, v1, v2)
-                time.sleep(240)
-            except KeyboardInterrupt:
-                print('End of Temp Loop')
-                break
-
     @staticmethod
     def _csvwriter(filename, *args):
         with open(filename, 'a', newline='') as f:
